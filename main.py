@@ -79,6 +79,14 @@ def get_item(
 
     return item
 
+@item_router.get("/", response_model=List[ItemSchema])
+def get_items(
+    db: Session = Depends(get_db)
+):
+    items: List[Item] = db.query(Item).all()
+
+    return items
+
 
 @item_router.delete("/", response_model=Optional[ItemSchema])
 def remove_item(
